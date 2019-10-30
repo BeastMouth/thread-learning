@@ -38,13 +38,13 @@ public class WrongWayVolatileFixed {
             this.storage = storage;
         }
 
-
         @Override
         public void run() {
             int num = 0;
             try {
                 while (num <= 100000 && !Thread.currentThread().isInterrupted()) {
                     if (num % 100 == 0) {
+                        // interrupted方法：能使线程在wait等过程中还是能够响应interrupted
                         storage.put(num);
                         System.out.println(num + "是100的倍数,被放到仓库中了。");
                     }
