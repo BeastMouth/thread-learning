@@ -54,6 +54,7 @@ class Producer implements Runnable {
                 if (num % 100 == 0) {
                     // 阻塞 等待消费者进一步的消费
                     // 实际上不会停止线程（生产者进入put阻塞时，消费者才传来canceled = true）
+                    // 与 WrongWayVolatile 不同的是 storage.put() 除非storage里面的元素被消费，否则无法唤醒
                     storage.put(num);
                     System.out.println(num + "是100的倍数,被放到仓库中了。");
                 }
