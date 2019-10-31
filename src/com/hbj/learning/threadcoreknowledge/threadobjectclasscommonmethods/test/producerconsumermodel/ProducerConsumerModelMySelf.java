@@ -1,4 +1,4 @@
-package com.hbj.learning.threadcoreknowledge.threadobjectclasscommonmethods;
+package com.hbj.learning.threadcoreknowledge.threadobjectclasscommonmethods.test.producerconsumermodel;
 
 import java.time.LocalTime;
 import java.util.ArrayDeque;
