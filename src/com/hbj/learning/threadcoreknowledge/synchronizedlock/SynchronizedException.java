@@ -15,13 +15,11 @@ public class SynchronizedException implements Runnable {
         System.out.println("我是加锁的非静态方法：" + Thread.currentThread().getName());
         try {
             Thread.sleep(3000);
-            throw new Exception();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        System.out.println(Thread.currentThread().getName() + "加锁的非静态方法运行结束");
+        throw new RuntimeException();
+//        System.out.println(Thread.currentThread().getName() + "加锁的非静态方法运行结束");
     }
 
     public synchronized void method2() {
