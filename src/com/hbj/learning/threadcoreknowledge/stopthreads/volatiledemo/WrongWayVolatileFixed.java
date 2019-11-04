@@ -51,6 +51,7 @@ public class WrongWayVolatileFixed {
                     num++;
                 }
             } catch (InterruptedException e) {
+                // 主线程通知停止,阻塞的线程相应到主线程的停止,跳出循环,实现停止线程
                 e.printStackTrace();
             } finally {
                 System.out.println("生产者结束运行");

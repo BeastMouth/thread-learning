@@ -61,6 +61,7 @@ class Producer implements Runnable {
                 num++;
             }
         } catch (InterruptedException e) {
+            // 没有经过interrupt通知线程停止,线程永远捕捉不到异常,线程永远在阻塞中,不会跳出等待
             e.printStackTrace();
         } finally {
             System.out.println("生产者结束运行");
