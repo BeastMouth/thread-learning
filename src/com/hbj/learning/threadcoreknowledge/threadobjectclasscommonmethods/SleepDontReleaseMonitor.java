@@ -1,6 +1,8 @@
 package com.hbj.learning.threadcoreknowledge.threadobjectclasscommonmethods;
 
 /**
+ * sleep不释放synchronized锁
+ *
  * @author hbj
  * @date 2019/11/4 17:53
  */
