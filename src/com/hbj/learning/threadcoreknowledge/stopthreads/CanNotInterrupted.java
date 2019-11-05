@@ -14,16 +14,19 @@ public class CanNotInterrupted {
                 }
                 num++;
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(15);
                 } catch (InterruptedException e) {
                     // 一旦响应过中断后，就会将interrupted标记位清楚
-                    e.printStackTrace();
+                    System.out.println("未在while处中断");
+//                    e.printStackTrace();
                 }
             }
         };
         Thread thread = new Thread(runnable);
         thread.start();
         Thread.sleep(5000);
-        thread.interrupt();
+        while (true) {
+            thread.interrupt();
+        }
     }
 }
