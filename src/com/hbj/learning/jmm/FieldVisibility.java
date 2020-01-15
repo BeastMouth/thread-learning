@@ -11,6 +11,11 @@ public class FieldVisibility {
 
     volatile int a = 1;
     volatile int b = 2;
+
+    // 等价（由于HappensBefore，b写入之前的所有操作都能够被后面的线程所感知）
+//    int a = 1;
+//    volatile int b = 2;
+
 //    int a = 1;
 //    int b = 2;
 
