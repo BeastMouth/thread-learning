@@ -1,5 +1,7 @@
 package com.hbj.learning.threadlocal;
 
+import java.text.SimpleDateFormat;
+
 /**
  * 演示ThreadLocal用法2：避免传递参数的麻烦
  *
@@ -35,7 +37,6 @@ public class ThreadLocalNormalUsage10 {
                 }
             }
         }).start();
-
     }
 }
 
@@ -50,7 +51,9 @@ class Service1 {
 
 class Service2 {
     public void process() {
+        // 这里holder，dateFormatThreadLocal都是ThreadLocal，他们作为key，存在了ThreadLocalMap里面，value是设置进去的对象，例如holder里面的user对象
         User user = UserContextHolder.holder.get();
+        SimpleDateFormat simpleDateFormat = ThreadSafeFormatter.dateFormatThreadLocal.get();
         System.out.println(Thread.currentThread().getName() + "Service2拿到用户名 : " + user.getName());
         new Service3().process();
     }
@@ -61,6 +64,7 @@ class Service3 {
         User user = UserContextHolder.holder.get();
         System.out.println(Thread.currentThread().getName() + "Service3拿到用户名 : " + user.getName());
         UserContextHolder.holder.remove();
+        ThreadSafeFormatter.dateFormatThreadLocal.remove();
     }
 }
 
