@@ -9,7 +9,7 @@ package com.hbj.learning.background;
 public class MultiThreadsError5 {
     int count;
 
-    public MultiThreadsError5(MySource source) {
+    private MultiThreadsError5(MySource source) {
         source.registerListener(new EventListener() {
             @Override
             public void onEvent(Event e) {
@@ -24,8 +24,18 @@ public class MultiThreadsError5 {
         count = 100;
     }
 
+    private EventListener listener;
+
+    // 利用工厂方法解决（先私有化构造器）
+    public static MultiThreadsError5 getInstance(MySource source) {
+        MultiThreadsError5 safeListener = new MultiThreadsError5(source);
+        source.registerListener(safeListener.listener);
+        return safeListener;
+    }
+
     public static void main(String[] args) {
         MySource mySource = new MySource();
+        MultiThreadsError5 multiThreadsError5 = MultiThreadsError5.getInstance(mySource);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -38,7 +48,7 @@ public class MultiThreadsError5 {
                 });
             }
         }).start();
-        MultiThreadsError5 multiThreadsError5 = new MultiThreadsError5(mySource);
+//        MultiThreadsError5 multiThreadsError5 = new MultiThreadsError5(mySource);
     }
 
     static class MySource {
