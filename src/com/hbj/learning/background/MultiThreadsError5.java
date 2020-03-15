@@ -10,14 +10,20 @@ public class MultiThreadsError5 {
     int count;
 
     private MultiThreadsError5(MySource source) {
-        source.registerListener(new EventListener() {
+        listener = new EventListener() {
             @Override
             public void onEvent(Event e) {
-                // 匿名内部类，持有对count等的引用，onEvent已经隐含的暴露了外部类的对象（隐式溢出，注册监听事件）
                 System.out.println("\n我得到的数字是" + count);
             }
-
-        });
+        };
+//        source.registerListener(new EventListener() {
+//            @Override
+//            public void onEvent(Event e) {
+//                // 匿名内部类，持有对count等的引用，onEvent已经隐含的暴露了外部类的对象（隐式溢出，注册监听事件）
+//                System.out.println("\n我得到的数字是" + count);
+//            }
+//
+//        });
         for (int i = 0; i < 10000; i++) {
             System.out.print(i);
         }
@@ -30,12 +36,13 @@ public class MultiThreadsError5 {
     public static MultiThreadsError5 getInstance(MySource source) {
         MultiThreadsError5 safeListener = new MultiThreadsError5(source);
         source.registerListener(safeListener.listener);
+
         return safeListener;
     }
 
     public static void main(String[] args) {
         MySource mySource = new MySource();
-        MultiThreadsError5 multiThreadsError5 = MultiThreadsError5.getInstance(mySource);
+//        MultiThreadsError5 multiThreadsError5 = MultiThreadsError5.getInstance(mySource);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -49,6 +56,7 @@ public class MultiThreadsError5 {
             }
         }).start();
 //        MultiThreadsError5 multiThreadsError5 = new MultiThreadsError5(mySource);
+        MultiThreadsError5 multiThreadsError5 = MultiThreadsError5.getInstance(mySource);
     }
 
     static class MySource {
